@@ -84,6 +84,8 @@ int altdeger=0;
 int altsetdeger=0;
 int ustsetdeger=0;
 
+int z=0;
+
 /* USER CODE END 0 */
 
 /**
@@ -137,6 +139,16 @@ int main(void)
 
 
 
+
+	  	  	  if(z == 0)
+	  	  	  {
+  	  			  HAL_Delay(100);
+	  	  		  z=1;
+	  	  	  }
+
+
+
+
 	  	  	 if(0 == Ust_deger_butonu)
 	  	  		        {
 
@@ -158,8 +170,17 @@ int main(void)
 	  	    if( ((a % 2) == 0) && ((u % 2) == 0) )
 	  	    {
 
-	  	        adc_oku();
-	  	    	Disp(yeniAdcDeger);
+
+	  	    	 adc_oku();
+
+	  	    	for(int count = 0 ; count<500 ; count++ )
+	  	    	{
+
+	  	    		 Disp(yeniAdcDeger);
+	  	    	}
+
+	  	    	// adc_oku();
+	  	    	//	Disp(yeniAdcDeger);
 
 
 
@@ -238,6 +259,19 @@ int main(void)
 
 
 
+
+
+	        if((yeniAdcDeger <= ustsetdeger ) && (yeniAdcDeger >= altsetdeger ) )
+	        {
+	        	HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, SET);
+
+	        }
+
+	        else
+	        {
+	        	HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, RESET);
+
+	        }
 
 
 
@@ -399,7 +433,6 @@ adc_oku(){
 				HAL_ADC_Start(&hadc);
 		  	    adcDeger = HAL_ADC_GetValue(&hadc);
 		  	    yeniAdcDeger=adcDeger/10;
-
 
 
 }
